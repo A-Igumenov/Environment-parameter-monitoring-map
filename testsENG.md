@@ -299,10 +299,3 @@ Without these variables the integration tests are gracefully skipped (normal in 
 ## 5. Running and maintenance
 
 Tests run via **a single script with no external dependencies** (no Composer, no CI services): `php tests/run.php` + `node --test tests/frontend/frontend.test.js`. PHP syntax is checked via `php -l`. Suitable for both local (XAMPP) and shared-hosting runs.
-
----
-
-## 6. Notes
-
-- The **Schema archive** use case was historically called "usedSh.<random>"; now the schema is **deleted** after install (deleteSchemaFile), so the test checks deletion.
-- Tests are written **without a Composer/PHPUnit dependency** — a custom minimal framework + a PHPUnit-style shim is used so they run on any PHP server.
