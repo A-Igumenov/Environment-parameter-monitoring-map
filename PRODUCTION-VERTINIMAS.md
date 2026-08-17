@@ -103,29 +103,7 @@ Viršijus apimtį — architektūros ataskaitoje aprašytas kelias (žinučių e
 
 ---
 
-## 6. Identifikuoti ir ištaisyti defektai (šios peržiūros metu)
-
-Peržiūra nuo nulio rado ir ištaisė:
-
-1. **`display_errors` nebuvo išjungtas** HTML puslapiuose — klaidos galėjo atskleisti kelius/duomenis. Pridėta į config.php (ir generuojamą config).
-2. **Trūko CSP ir saugumo antraščių** HTML puslapiuose (buvo tik API). Pridėta `setSecurityHeaders()` visuose 6 puslapiuose su CSP, leidžiančiu Google Maps ir Chart.js.
-
-Ankstesnių peržiūrų metu taip pat ištaisyta: SQL skaidymo klaida (kabliataškis komentare), HMAC payload formato neatitikimas (float vs raw string).
-
-**Naujausios peržiūros metu papildomai ištaisyta / patobulinta:**
-
-3. **CSP konfliktas** — `.htaccess` turėjo statinę CSP, kuri persidengdavo su PHP CSP ir blokuodavo žemėlapio plyteles (naršyklė taiko griežtesnę iš dviejų). Sprendimas: CSP tik PHP pusėje (vienas šaltinis), `.htaccess` CSP pašalinta.
-4. **Eksplicitiškas žemėlapio tiekėjas** — anksčiau Google vs Leaflet būdavo sprendžiama pagal API rakto buvimą, todėl pasirinkus Yandex su esamu Google raktu rodydavosi Google slapukai. Sprendimas: `MAP_TILE_PROVIDER` kaip vienas tiesos šaltinis (`effectiveMapProvider()`), rakto laukas tik prie Google, slapukai/privatumas pagal tiekėją.
-5. **UTC laiko juosta** — `DATETIME` laukai buvo be laiko juostos, todėl naršyklė rodydavo neteisingą laiką. Sprendimas: PHP + MySQL sesija UTC, API grąžina ISO 8601 su „Z", naršyklė automatiškai konvertuoja į lokalų laiką.
-6. **admin.php perkeltas į `includes/`** — administravimo puslapis paslėptas serverio kataloge su tikslia `.htaccess` išimtimi (leidžia `admin*.php`, draudžia `admin_file.php`/config/settings); `index.php` pirmo paleidimo metu nukreipia į sąranką. Visi keliai pataisyti nelaužiant veikimo.
-7. **Testų infrastruktūra atspari saugumo funkcijoms** — testai dinamiškai randa admin failą per žymeklį, todėl praeina ir po admin failo pervadinimo.
-8. **HMAC raktas niekada nebuvo įrašomas į DB** — funkcija veikė tik tikrinimui, bet nebuvo būdo priskirti `secret`. Sprendimas: admin `set_secret` veiksmas + `🔐 HMAC` mygtukas `manage.php` jutiklio eilutėje; raktas niekada negrąžinamas per API.
-9. **BDAR testas priklausė nuo `schema.sql`** — kurį admin auto-trina po diegimo. Sprendimas: testas tikrina ir `includes/admin.php` diegiklį (visada yra).
-10. **Žemėlapis lūždavo įdėjus `defer` Leaflet skriptui** — OSM suderinamumo shim'as fiksuoja `window.L` parse metu, o `defer` jį palieka `undefined`. Sprendimas: Leaflet kraunamas sinchroniškai; apsauginis frontend testas neleidžia regresijos.
-
----
-
-## 7. Sąlygos prieš produkciją
+## 6. Sąlygos prieš produkciją
 
 Privaloma prieš paleidimą:
 
@@ -138,7 +116,7 @@ Privaloma prieš paleidimą:
 
 ---
 
-## 8. Likę patobulinimai (neblokuojantys)
+## 7. Likę patobulinimai 
 
 - Marker clustering prie didelio tankio (Leaflet.markercluster / MarkerClusterer)
 - `map_data` koreliuotų subužklausų optimizacija prie ~50k jutiklių (precomputed `seq` stulpelis + `reading_count` denormalizacija)
@@ -151,7 +129,3 @@ Privaloma prieš paleidimą:
 ## Galutinė išvada
 
 Sprendimas yra **funkcionaliai pilnas, saugus ir tinkamas produkcijai** edukacinei/nekomercinei aplinkai iki 49 800 jutiklių. Kodo kokybė aukšta, saugumo pagrindai (OWASP Top 10) padengti, testų aprėptis tvirta (**~484 testų**, be CI priklausomybių). Kritinių ar aukštų neišspręstų saugumo trūkumų **nėra**.
-
-**Rizikos lygis produkcijai (apibrėžtoje apimtyje): ŽEMAS.**
-
-Įvykdžius 7 skyriaus sąlygas (ypač HTTPS ir atsargines kopijas), sprendimą galima saugiai naudoti realioje aplinkoje.
