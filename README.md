@@ -314,7 +314,7 @@ Jutiklis identifikuojamas trijų kintamųjų pagalbą **(lat, lng, MAC)**. Regis
 
 Tai leidžia paruošti firmware **be koordinačių** — jutiklis siunčia savo MAC automatiškai, o vieta nustatoma registracijos metu naršyklėje.
 
-### 8.2 HMAC parašo formatas (kritinis)
+### 8.2 HMAC parašo formatas 
 
 Serveris pasirašo **žalią (raw) GET reikšmę**, ne apdorotą float. Firmware siunčia `String(lat, 7)` = `"54.6872000"` (su užbaigiamais nuliais). Jei serveris pasirašytų PHP float `54.6872` (be nulių), parašai **niekada nesutaptų**. Todėl:
 
