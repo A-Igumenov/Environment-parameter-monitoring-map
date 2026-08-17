@@ -1,6 +1,8 @@
 # IoT Sensor Map — Environmental Monitoring System
 
-A real-time, map-based IoT sensor aggregation platform for monitoring environmental metrics. Sensors (ESP32 / ESP8266) send measurements to a REST API, and the map displays their location and latest data. Built to run on a standard PHP + MySQL server (Hostinger, XAMPP) with no Composer or Node.js dependencies.
+A real-time, map-based IoT sensor aggregation platform for monitoring environmental metrics. Sensors (ESP32 / ESP8266) send measurements to a REST API, and the map displays their location and latest data. Built to run on a standard PHP + MySQL server (Hostinger, XAMPP).
+
+![Žemėlapis](./screenshots/MapEn.png)
 
 > 🇱🇹 **Lietuviška versija:** see [`README.md`](README.md).
 
