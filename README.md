@@ -162,8 +162,8 @@ Prieš kuriant savą sprendimą, įvertintos esamos platformos. Visos konceptual
 | **[Leaflet](https://leafletjs.com/) + [OpenStreetMap](https://www.openstreetmap.org/)** | Atviras, nemokamas, be API rakto | **Įgyvendinta kaip alternatyva** — kai nėra Google Maps rakto, automatiškai naudojamas OSM per Leaflet (žr. 8.10). Google Maps lieka pasirinktimi dėl integruoto geokodavimo |
 
 **Sprendimo pasirinkimo pagrindimas.** Sukurtas **savas PHP + MySQL sprendimas**, nes:
-1. **Shared hosting suderinamumas** — veikia bet kuriame €3/mėn PHP hostinge be VPS.
-2. **Zero-build** — studentai gali įkelti per FTP ir paleisti per naršyklę.
+1. **Shared hosting suderinamumas** — veikia bet kuriame PHP hostinge be VPS.
+2. **Zero-build** — naudotojai gali įkelti per FTP ir paleisti tiesiog naršyklę.
 3. **Edukacinė vertė** — visas kodas skaidrus, be juodų dėžių.
 4. **Pilna kontrolė** — duomenų modelis pritaikytas tiksliai aplinkos metrikoms.
 
