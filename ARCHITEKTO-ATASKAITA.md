@@ -109,35 +109,7 @@ Tikslinė riba: 49 800 jutiklių, ~166 įrašymai/sek.
 
 ---
 
-## 7. Rasti ir ištaisyti defektai (istorija)
-
-| # | Defektas | Sunkumas | Statusas |
-|---|----------|----------|----------|
-| 1 | reading lūždavo (dubliuota $sensorId) | 🔴 Kritinis | ✅ |
-| 2 | SQL skaidymas sugadindavo schemą | 🔴 Kritinis | ✅ |
-| 3 | HMAC niekada nesutapdavo | 🔴 Kritinis | ✅ |
-| 4 | setSecurityHeaders redeclare | 🔴 Kritinis | ✅ (security.php) |
-| 5 | Admin generuodavo config su funkcija | 🔴 Kritinis | ✅ |
-| 6 | SSE blokuodavo užklausas | 🔴 Kritinis | ✅ (session_write_close) |
-| 7 | Testai lūždavo (shell_exec) | 🟡 Vidutinis | ✅ (shell-free) |
-| 8 | db-check.php neapsaugotas | 🟡 Vidutinis | ✅ |
-| 9 | Trynimas atmesdavo teisingą slaptažodį (hash skaitytas iš admin_pass.php, ne settings.php) | 🔴 Kritinis | ✅ (auth.php sutaikytas su admin.php) |
-| 10 | Slaptažodis nemaskuojamas (prompt) | 🟡 Vidutinis | ✅ (maskuotas modalas) |
-| 11 | CSP konfliktas (.htaccess vs PHP) blokuodavo žemėlapio plyteles | 🔴 Kritinis | ✅ (vienas CSP šaltinis — PHP; .htaccess CSP pašalinta) |
-| 12 | Tiekėjas parenkamas implicitiškai (pagal rakto buvimą) — Yandex rodydavo Google slapukus | 🟡 Vidutinis | ✅ (eksplicitiškas `MAP_TILE_PROVIDER` + `effectiveMapProvider()`) |
-| 13 | Privatumo/slapukų tekstas minėdavo Google ne-Google diegime | 🟡 Vidutinis | ✅ (tekstas pagal tiekėją; Google neminimas ne-Google šakose) |
-| 14 | Laiko juostos dviprasmybė (DATETIME be tz) — laikas rodomas neteisingai | 🟡 Vidutinis | ✅ (UTC visur + ISO „Z"; naršyklė konvertuoja) |
-| 15 | Testai lūždavo po admin failo pervadinimo (fiksuotas „admin.php") | 🟡 Vidutinis | ✅ (dinaminis `adminFileName()` per žymeklį) |
-| 16 | admin.php perkeltas į `includes/` nelaužiant veikimo (keliai, nuorodos, .htaccess išimtis) | 🟢 Patobulinimas | ✅ (visi keliai pataisyti) |
-| 17 | HMAC raktas niekada nebuvo įrašomas į DB — funkcija nepasiekiama nuo galo iki galo (nebuvo provizionavimo) | 🟡 Vidutinis | ✅ (admin `set_secret` sąsaja + `🔐 HMAC` mygtukas) |
-| 18 | BDAR testas priklausė nuo `schema.sql`, kurį admin auto-trina po diegimo | 🟡 Žemas | ✅ (tikrina ir `includes/admin.php` diegiklį) |
-| 19 | Žemėlapio shim'as lūždavo įdėjus `defer` Leaflet skriptui (`window.L` undefined parse metu) | 🟡 Vidutinis | ✅ (Leaflet sinchroniškas; apsauginis frontend testas) |
-
-**Pamoka:** funkcijos gali „egzistuoti" kode, bet neveikti. Testai turi tikrinti realius srautus ir nepriklausyti nuo shell funkcijų. Hash skaitymas turi būti iš to paties šaltinio login ir API pusėje.
-
----
-
-## 8. Galutinis verdiktas
+## 7. Galutinis verdiktas
 
 **Sprendimas TINKA produkcijai** edukaciniam/nekomerciniam naudojimui iki 49 800 jutiklių, **su sąlygomis:**
 
@@ -149,7 +121,6 @@ Tikslinė riba: 49 800 jutiklių, ~166 įrašymai/sek.
 6. db-check.php ištrynimas
 7. SSE tik VPS/galingame hostinge (kitaip polling)
 
-**Rizikos lygis: ŽEMAS.** Kritinių neišspręstų trūkumų nėra. Visi 19 rastų defektų ištaisyti ir padengti regresijos testais.
 
 ---
 
