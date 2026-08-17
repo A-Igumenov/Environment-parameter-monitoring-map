@@ -296,10 +296,3 @@ Be šių kintamųjų integraciniai testai gražiai praleidžiami (produkcijoje n
 ## 5. Paleidimas ir priežiūra
 
 Testai paleidžiami **vienu skriptu be išorinių priklausomybių** (be Composer, be CI paslaugų): `php tests/run.php` + `node --test tests/frontend/frontend.test.js`. PHP sintaksė tikrinama per `php -l`. Tinka ir lokaliam (XAMPP), ir shared hosting paleidimui.
-
----
-
-## 6. Pastabos
-
-- **Schema archive** use case'as istoriškai vadinosi „usedSh.<random>", dabar schema **ištrinama** po diegimo (deleteSchemaFile), todėl testas patikrina ištrynimą.
-- Testai sukurti **be Composer/PHPUnit priklausomybės** — naudojamas savas minimalus karkasas + PHPUnit-stiliaus shim, kad veiktų bet kuriame PHP serveryje.
