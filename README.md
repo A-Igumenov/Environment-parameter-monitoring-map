@@ -853,6 +853,6 @@ Numatytuoju režimu žemėlapis atsinaujina kas 30 s. Norėdami įjungti realaus
 **Licencija.** CC BY-NC 4.0 (mokomasis / nekomercinis, privaloma atribucija). Žr. `LICENSE`. Autorius ir įstaiga turi likti matomi kiekvieno puslapio poraštėje.
 
 **Autorius:** Aleksandr Igumenov
-**Įstaiga:** Vilnius University Methodical STEAM Education Centre
+**Įstaiga:** Vilniaus universitetas Metodinis STEAM ugdymo centras
 
-**Šaltiniai.** Visas kodas parašytas nuo nulio šiam projektui. Technologijos: PHP, MySQL/MariaDB, vanilla JavaScript, Google Maps JavaScript API, Google Geocoding API, Chart.js. Konceptualiai panašūs atvirojo kodo projektai (nekopijuoti, žr. alternatyvų vertinimą): Sensor.Community, OpenSenseMap, ThingsBoard, Leaflet.
+**Šaltiniai.** Technologijos: PHP, MySQL/MariaDB, vanilla JavaScript, Google Maps JavaScript API, Google Geocoding API, Chart.js. Konceptualiai panašūs atvirojo kodo projektai (žr. alternatyvos): Sensor.Community, OpenSenseMap, ThingsBoard, Leaflet.
