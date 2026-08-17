@@ -106,29 +106,7 @@ Beyond the scope — the path described in the architect report (message queues,
 
 ---
 
-## 6. Defects identified and fixed (during this review)
-
-The from-scratch review found and fixed:
-
-1. **`display_errors` was not disabled** on HTML pages — errors could reveal paths/data. Added to config.php (and the generated config).
-2. **Missing CSP and security headers** on HTML pages (only the API had them). Added `setSecurityHeaders()` on all 6 pages with a CSP allowing Google Maps and Chart.js.
-
-Earlier reviews also fixed: SQL splitting bug (semicolon in a comment), HMAC payload format mismatch (float vs raw string).
-
-**Additionally fixed / improved in the latest review:**
-
-3. **CSP conflict** — `.htaccess` had a static CSP that overlapped with the PHP CSP and blocked map tiles (the browser applies the stricter of the two). Fix: CSP only on the PHP side (single source), `.htaccess` CSP removed.
-4. **Explicit map provider** — previously Google vs Leaflet was decided by the presence of the API key, so selecting Yandex with an existing Google key showed Google cookies. Fix: `MAP_TILE_PROVIDER` as a single source of truth (`effectiveMapProvider()`), the key field only for Google, cookies/privacy per provider.
-5. **UTC time zone** — `DATETIME` fields had no time zone, so the browser displayed the wrong time. Fix: PHP + MySQL session UTC, the API returns ISO 8601 with "Z", the browser converts to local time automatically.
-6. **admin.php moved into `includes/`** — the admin page is hidden in the server folder with a precise `.htaccess` exception (allows `admin*.php`, denies `admin_file.php`/config/settings); `index.php` redirects to setup on first run. All paths fixed without breaking anything.
-7. **Test infrastructure resilient to security features** — tests find the admin file dynamically via the marker, so they pass even after the admin file is renamed.
-8. **HMAC key was never written to the DB** — the feature only verified, with no way to assign a `secret`. Fix: an admin `set_secret` action + `🔐 HMAC` button in the `manage.php` sensor row; the key is never returned by the API.
-9. **GDPR test depended on `schema.sql`** — which the admin auto-deletes after install. Fix: the test also checks the `includes/admin.php` installer (always present).
-10. **The map broke when leaflet.js was `defer`-ed** — the OSM compatibility shim captures `window.L` at parse time, and `defer` leaves it `undefined`. Fix: Leaflet loads synchronously; a frontend guard test prevents regression.
-
----
-
-## 7. Conditions before production
+## 6. Conditions before production
 
 Mandatory before launch:
 
@@ -141,7 +119,7 @@ Mandatory before launch:
 
 ---
 
-## 8. Remaining improvements (non-blocking)
+## 7. Remaining improvements (non-blocking)
 
 - Marker clustering at high density (Leaflet.markercluster / MarkerClusterer)
 - `map_data` correlated subquery optimization at ~50k sensors (precomputed `seq` column + `reading_count` denormalization)
