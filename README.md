@@ -1,6 +1,7 @@
 # IoT Sensorių Žemėlapis — Aplinkos Duomenų Stebėsenos Sistema
 
-Realaus laiko žemėlapiu pagrįsta IoT jutiklių agregavimo platforma aplinkos rodikliams stebėti. Jutikliai (ESP32 / ESP8266) siunčia matavimus į REST API, o žemėlapis rodo jų vietą ir naujausius duomenis. Sukurta veikti įprastame PHP + MySQL serveryje (Hostinger, XAMPP) be Composer ar Node.js priklausomybių.
+Realaus laiko žemėlapiu pagrįsta IoT jutiklių agregavimo platforma aplinkos rodikliams stebėti. Jutikliai (ESP32 / ESP8266) siunčia matavimus į REST API, o žemėlapis rodo jų vietą ir naujausius duomenis. Sukurta veikti įprastame PHP + MySQL serveryje (Hostinger, XAMPP).
+
 ![Žemėlapis](./screenshots/MapLt.png)
 
 > 🇬🇧 **English version:** žr. [`README_EN.md`](README_EN.md).
