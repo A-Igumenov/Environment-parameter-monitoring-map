@@ -142,15 +142,15 @@ Non-functional requirements define **how well** the system performs (quality att
 | Test runner | Single PHP/Node script (`tests/run.php`) | — | (no CI dependencies; runs locally and on shared hosting) |
 
 **Architecture principles:**
-- **Zero-build** — no Webpack/Vite/npm build step. All files run directly.
+- **Zero-build** — no Webpack/Vite/npm. All files run directly on server.
 - **No server dependencies** — no Composer required; PHPUnit replaced with a custom shim.
-- **Progressive** — the map works with polling; SSE is an optional enhancement.
+- **Progressive** — the map works with polling; SSE is support is realised. 
 
 ---
 
 ## 5. Evaluation of Alternatives
 
-Before building a custom solution, existing platforms were evaluated. All are conceptually similar but did not fit for specific reasons (code was **not copied**).
+Before building a custom solution, existing platforms were evaluated. All are conceptually similar but did not fit for specific reasons.
 
 | Solution | Advantages | Why it did not fit this project |
 |----------|-----------|--------------------------------|
@@ -162,8 +162,8 @@ Before building a custom solution, existing platforms were evaluated. All are co
 | **[Leaflet](https://leafletjs.com/) + [OpenStreetMap](https://www.openstreetmap.org/)** | Open, free, no API key | **Implemented as the alternative** — when no Google Maps key is set, OSM via Leaflet is used automatically (see 8.10). Google Maps remains an option for its integrated geocoding |
 
 **Rationale for the chosen solution.** A **custom PHP + MySQL solution** was built because:
-1. **Shared-hosting compatibility** — runs on any €3/month PHP host without a VPS.
-2. **Zero-build** — students can upload via FTP and run via the browser.
+1. **Shared-hosting compatibility** — runs on any PHP host without a VPS.
+2. **Zero-build** — users can upload solution via FTP and run directli inside of the browser.
 3. **Educational value** — all code is transparent, no black boxes.
 4. **Full control** — the data model is tailored exactly to environmental metrics.
 
@@ -314,7 +314,7 @@ A sensor is identified by the triple **(lat, lng, MAC)**. At registration, only 
 
 This allows preparing firmware **without coordinates** — the sensor sends its MAC automatically, while the location is set during registration in the browser.
 
-### 8.2 HMAC signature format (critical)
+### 8.2 HMAC signature format
 
 The server signs the **raw GET value**, not a processed float. Firmware sends `String(lat, 7)` = `"54.6872000"` (with trailing zeros). If the server signed the PHP float `54.6872` (without zeros), the signatures would **never match**. Therefore:
 
