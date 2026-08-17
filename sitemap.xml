@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  sitemap.xml — IoT Sensor Map
+  Lists the PUBLIC pages for search engines. Update the domain / sub-folder
+  (https://prolab.lt/iot/) to match your deployment. The admin UI (manage.php)
+  and internals are intentionally excluded (they are noindex).
+-->
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url>
+    <loc>https://prolab.lt/iot/index.php</loc>
+    <changefreq>daily</changefreq>
+    <priority>1.0</priority>
+  </url>
+  <url>
+    <loc>https://prolab.lt/iot/privacy.php</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.3</priority>
+  </url>
+  <url>
+    <loc>https://prolab.lt/iot/cookies.php</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.3</priority>
+  </url>
+</urlset>

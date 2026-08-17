@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  PHPUnit konfigūracija.
+
+  Pagrindinis būdas (be jokių priklausomybių — projektas zero-build):
+      php tests/phpunit/run-phpunit.php
+
+  Nebūtina: jei norite tikro PHPUnit, įdiekite jį atskirai (phar arba composer):
+      vendor/bin/phpunit
+-->
+<phpunit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/10.5/phpunit.xsd"
+         bootstrap="tests/phpunit/bootstrap.php"
+         colors="true"
+         cacheDirectory=".phpunit.cache">
+    <testsuites>
+        <testsuite name="IoT Sensor Map">
+            <directory>tests/phpunit</directory>
+        </testsuite>
+    </testsuites>
+</phpunit>

@@ -1,0 +1,28 @@
+# robots.txt — IoT Sensor Map
+#
+# IMPORTANT: search engines read robots.txt ONLY from the domain root,
+# e.g. https://example.com/robots.txt — NOT from a sub-folder.
+# If this app is installed in a sub-folder (e.g. https://prolab.lt/iot/),
+# either:
+#   (a) merge the rules below into the site's ROOT robots.txt and prefix the
+#       paths with the sub-folder (e.g. Disallow: /iot/manage.php), or
+#   (b) rely on the per-page <meta name="robots"> tags, which are already set
+#       (index.php = index,follow · manage.php / db-check.php = noindex).
+#
+# The paths below assume the app is served from the domain ROOT.
+
+User-agent: *
+
+# Public pages (index.php, privacy.php, cookies.php) are allowed by default.
+
+# Keep the admin UI, API, internals and diagnostics out of search indexes:
+Disallow: /manage.php
+Disallow: /admin.php
+Disallow: /db-check.php
+Disallow: /api/
+Disallow: /includes/
+Disallow: /tests/
+Disallow: /assets/leaflet/
+
+# Update the domain (and sub-folder, if any) for your deployment:
+Sitemap: https://prolab.lt/iot/sitemap.xml
