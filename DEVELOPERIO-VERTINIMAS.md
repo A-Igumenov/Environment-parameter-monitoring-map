@@ -1,10 +1,6 @@
 # Programuotojo (Developerio) Sprendimo Vertinimas
 ## IoT Sensorių Žemėlapis — Aplinkos Duomenų Stebėsenos Sistema
 
-> Šis vertinimas papildo architekto ir production analizę, žiūrint iš **kasdienio kodo palaikymo ir plėtros** perspektyvos: kodo skaitomumas, testuojamumas, klaidų tikimybė keičiant, įrankiai ir vystymo patogumas.
-
----
-
 ## 1. Santrauka
 
 Kodo bazė yra **vientisa, nuosekli ir lengvai palaikoma** mažos/vidutinės komandos. Zero-build principas (be Composer/npm) reiškia, kad bet kuris programuotojas gali įkelti failus per FTP ir iškart matyti rezultatą — nereikia diegimo grandinės. Modulinė `includes/` struktūra ir vienas tiesos šaltinis kiekvienai atsakomybei (CSP, žemėlapio tiekėjas, admin failo vardas, laiko juosta) mažina klaidų tikimybę keičiant kodą.
@@ -40,10 +36,6 @@ Kodo bazė yra **vientisa, nuosekli ir lengvai palaikoma** mažos/vidutinės kom
 - FR/NFR atsekamumo testas (`RequirementsTest`) susieja reikalavimus su kodu — keičiant funkciją iškart matyti, kas turi būti padengta.
 - Integraciniai testai naudoja realią DB (`IOT_TEST_DSN`) ir realius HTTP srautus, ne tik statinę analizę.
 
-**Praktinė pastaba:** prieš commit'ą paleiskite `php tests/run.php` + `node --test tests/frontend/frontend.test.js`. Integraciniai testai praleidžiami be test DB — tai normalu lokaliai.
-
-**Naujų funkcijų aprėptis.** Dviejų pakopų prisijungimas (`TwoStageAuthTest`), HMAC rakto provizionavimas (`set_secret`), vidurkiai pagal periodą (`averages`) ir SEO elementai (robots/sitemap/canonical) padengti statinėmis ir integracinėmis patikromis; `schema.sql`-priklausomos patikros padarytos atsparios (tikrina ir `includes/admin.php` diegiklį), nes admin po diegimo `schema.sql` ištrina.
-
 ---
 
 ## 4. Keitimo saugumas (kaip lengva ką nors sulaužyti)
@@ -57,8 +49,6 @@ Kodo bazė yra **vientisa, nuosekli ir lengvai palaikoma** mažos/vidutinės kom
 | Naujo API endpoint pridėjimas | 🟢 Žema | `action` parametro šablonas; versijavimas per `api/v1/` |
 | Leaflet skripto krovimo keitimas | 🟡 Vidutinė | OSM shim fiksuoja `window.L` parse metu — Leaflet turi likti **sinchroniškas** (be `defer`/`async`); saugo frontend testas |
 | Config generavimo keitimas | 🟡 Vidutinė | `writeConfig()` šablonas dubliuoja `db()` — keisti abi vietas |
-
-**Pamoka iš istorijos:** funkcijos gali „egzistuoti" kode, bet neveikti realiame sraute (pvz. hash skaitymas iš skirtingų šaltinių). Todėl testai tikrina **realius srautus**, ne tik funkcijų buvimą.
 
 ---
 
@@ -89,6 +79,5 @@ Nė viena iš šių vietų neblokuoja vystymo ar produkcijos.
 
 ## 7. Išvada
 
-Iš programuotojo perspektyvos sprendimas yra **malonus palaikyti**: aiški struktūra, vienas tiesos šaltinis kiekvienai logikai, tvirta testų aprėptis (~484 testų) ir aukštas keitimo saugumas. Naujas komandos narys gali greitai susiorientuoti, o saugumo funkcijos (admin pervadinimas, perkėlimas į `includes/`) nelaužia testų dėl dinaminio failo radimo.
+Iš programuotojo perspektyvos sprendimas yra **nėra problemų tolimesniam vystimuisi**: aiški struktūra, vienas tiesos šaltinis kiekvienai logikai, tvirta testų aprėptis (~484 testų) ir aukštas keitimo saugumas. Naujas komandos narys gali greitai susiorientuoti, o saugumo funkcijos (admin pervadinimas, perkėlimas į `includes/`) nelaužia testų dėl dinaminio failo radimo.
 
-**Developerio rizikos lygis: ŽEMAS.** Pagrindinė techninė skola — `writeConfig()`/`db()` dubliavimas ir `map_data` subužklausos prie pilno mastelio — yra žinoma, dokumentuota ir neblokuojanti.
