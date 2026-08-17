@@ -263,10 +263,10 @@ Esybių-ryšių (Entity-Relationship) diagrama. `sensors` ↔ `readings` yra vie
 │     registered_at DATETIME      │   │
 │     last_seen     DATETIME      │   │
 └────────────┬────────────────────┘   │
-             │ 1                       │
-             │                         │
-             │ N      ON DELETE CASCADE│
-             ▼                         │
+             │ 1                      │
+             │                        │
+             │ N     ON DELETE CASCADE│
+             ▼                        │
 ┌─────────────────────────────────┐   │
 │           readings              │   │
 ├─────────────────────────────────┤   │
@@ -473,8 +473,8 @@ void loop() {
 const char* SSID   = "jusu-wifi";
 const char* WIFIPW = "slaptazodis";
 const char* HOST   = "https://jusu-serveris.lt/iot/api/sensors.php";
-const float MY_LAT = 54.6872000;
-const float MY_LNG = 25.2797000;
+const char* MY_LAT = 54.6872000;
+const char* MY_LNG = 25.2797000;
 
 // HMAC shared-secret — turi sutapti su jutiklio `secret` reikšme DB.
 // Palikite tuščią (""), jei jutiklis neturi secret (parašas neprivalomas).
@@ -547,8 +547,8 @@ void loop() {
 const char* SSID   = "jusu-wifi";
 const char* WIFIPW = "slaptazodis";
 const char* HOST   = "https://jusu-serveris.lt/iot/api/sensors.php";
-const float MY_LAT = 54.6872000;
-const float MY_LNG = 25.2797000;
+const char* MY_LAT = 54.6872000;
+const char* MY_LNG = 25.2797000;
 const char* SECRET = "mano-jutiklio-secret-123";
 
 String macAddr;
