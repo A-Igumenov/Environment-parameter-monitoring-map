@@ -111,35 +111,7 @@ Target limit: 49,800 sensors, ~166 writes/sec.
 
 ---
 
-## 7. Defects found and fixed (history)
-
-| # | Defect | Severity | Status |
-|---|--------|----------|--------|
-| 1 | reading broke (duplicated $sensorId) | 🔴 Critical | ✅ |
-| 2 | SQL splitting corrupted the schema | 🔴 Critical | ✅ |
-| 3 | HMAC never matched | 🔴 Critical | ✅ |
-| 4 | setSecurityHeaders redeclare | 🔴 Critical | ✅ (security.php) |
-| 5 | Admin generated config with a function | 🔴 Critical | ✅ |
-| 6 | SSE blocked requests | 🔴 Critical | ✅ (session_write_close) |
-| 7 | Tests broke (shell_exec) | 🟡 Medium | ✅ (shell-free) |
-| 8 | db-check.php unprotected | 🟡 Medium | ✅ |
-| 9 | Delete rejected the correct password (hash read from admin_pass.php, not settings.php) | 🔴 Critical | ✅ (auth.php reconciled with admin) |
-| 10 | Password not masked (prompt) | 🟡 Medium | ✅ (masked modal) |
-| 11 | CSP conflict (.htaccess vs PHP) blocked map tiles | 🔴 Critical | ✅ (single CSP source — PHP; .htaccess CSP removed) |
-| 12 | Provider chosen implicitly (by key presence) — Yandex showed Google cookies | 🟡 Medium | ✅ (explicit `MAP_TILE_PROVIDER` + `effectiveMapProvider()`) |
-| 13 | Privacy/cookies text mentioned Google on a non-Google deployment | 🟡 Medium | ✅ (text per provider; Google not mentioned in non-Google branches) |
-| 14 | Time-zone ambiguity (DATETIME without tz) — time displayed incorrectly | 🟡 Medium | ✅ (UTC everywhere + ISO "Z"; browser converts) |
-| 15 | Tests broke after admin file rename (hardcoded "admin.php") | 🟡 Medium | ✅ (dynamic `adminFileName()` via marker) |
-| 16 | admin.php moved into `includes/` without breaking (paths, links, .htaccess exception) | 🟢 Improvement | ✅ (all paths fixed) |
-| 17 | HMAC key was never written to the DB — feature unusable end-to-end (no provisioning) | 🟡 Medium | ✅ (admin `set_secret` UI + `🔐 HMAC` button) |
-| 18 | GDPR test depended on `schema.sql`, which the admin auto-deletes after install | 🟡 Low | ✅ (also checks the `includes/admin.php` installer) |
-| 19 | Map shim broke when leaflet.js was `defer`-ed (`window.L` undefined at parse time) | 🟡 Medium | ✅ (Leaflet synchronous; frontend guard test) |
-
-**Lesson:** functions can "exist" in code but not work. Tests must check real flows and not depend on shell functions. Hash reading must come from the same source on the login and API sides.
-
----
-
-## 8. Final verdict
+## 7. Final verdict
 
 **The solution IS production-suitable** for educational/non-commercial use up to 49,800 sensors, **with conditions:**
 
