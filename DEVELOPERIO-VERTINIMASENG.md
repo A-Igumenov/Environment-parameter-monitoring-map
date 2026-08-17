@@ -1,12 +1,6 @@
 # Developer Solution Evaluation
 ## IoT Sensor Map — Environmental Data Monitoring System
 
-> This evaluation complements the architect and production analyses, viewed from the **day-to-day code maintenance and development** perspective: readability, testability, the likelihood of breaking things when changing, tooling and developer experience.
->
-> English version of `DEVELOPERIO-VERTINIMAS.md`.
-
----
-
 ## 1. Summary
 
 The codebase is **coherent, consistent and easy to maintain** for a small/medium team. The zero-build principle (no Composer/npm) means any developer can upload files via FTP and see the result immediately — no build chain required. The modular `includes/` structure and a single source of truth for each concern (CSP, map provider, admin filename, time zone) reduce the chance of breaking things when changing code.
@@ -42,10 +36,6 @@ The codebase is **coherent, consistent and easy to maintain** for a small/medium
 - The FR/NFR traceability test (`RequirementsTest`) links requirements to code — when changing a function you immediately see what must be covered.
 - Integration tests use a real DB (`IOT_TEST_DSN`) and real HTTP flows, not just static analysis.
 
-**Practical note:** before committing, run `php tests/run.php` + `node --test tests/frontend/frontend.test.js`. Integration tests are skipped without a test DB — that is normal locally.
-
-**New-feature coverage.** Two-stage login (`TwoStageAuthTest`), HMAC key provisioning (`set_secret`), period averages (`averages`) and SEO elements (robots/sitemap/canonical) are covered by static and integration checks; `schema.sql`-dependent checks were made robust (they also check the `includes/admin.php` installer), because the admin auto-deletes `schema.sql` after install.
-
 ---
 
 ## 4. Change safety (how easy it is to break something)
@@ -59,8 +49,6 @@ The codebase is **coherent, consistent and easy to maintain** for a small/medium
 | Adding a new API endpoint | 🟢 Low | `action` parameter pattern; versioning via `api/v1/` |
 | Changing Leaflet script loading | 🟡 Medium | The OSM shim captures `window.L` at parse time — Leaflet must stay **synchronous** (no `defer`/`async`); guarded by a frontend test |
 | Changing config generation | 🟡 Medium | `writeConfig()` duplicates `db()` — change both places |
-
-**Lesson from history:** functions can "exist" in code but not work in a real flow (e.g. hash read from different sources). Therefore tests verify **real flows**, not just the presence of functions.
 
 ---
 
@@ -88,9 +76,7 @@ The codebase is **coherent, consistent and easy to maintain** for a small/medium
 None of these block development or production.
 
 ---
-
+ 
 ## 7. Conclusion
 
-From a developer's perspective the solution is **pleasant to maintain**: a clear structure, a single source of truth for each piece of logic, strong test coverage (~484 tests) and high change safety. A new team member can get oriented quickly, and security features (admin rename, move into `includes/`) do not break tests thanks to dynamic file resolution.
-
-**Developer risk level: LOW.** The main technical debt — `writeConfig()`/`db()` duplication and `map_data` subqueries at full scale — is known, documented and non-blocking.
+From a developer's perspective the solution is **pleasant to maintain and develop in future**: a clear structure, a single source of truth for each piece of logic, strong test coverage (~484 tests) and high change safety. A new team member can get oriented quickly, and security features (admin rename, move into `includes/`) do not break tests thanks to dynamic file resolution.   
