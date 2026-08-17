@@ -142,15 +142,15 @@ Nefunkciniai reikalavimai apibrėžia, **kaip gerai** sistema veikia (kokybės a
 | Testų paleidimas | Vienas PHP/Node skriptas (`tests/run.php`) | — | (be CI priklausomybių; veikia lokaliai ir shared hosting'e) |
 
 **Architektūros principai:**
-- **Zero-build** — jokio Webpack/Vite/npm build žingsnio. Visi failai veikia tiesiogiai.
-- **Be priklausomybių serveryje** — nereikia Composer; PHPUnit pakeistas savu shim.
-- **Progresyvus** — žemėlapis veikia su polling; SSE yra pasirinktinis patobulinimas.
+- **Zero-build** — jokio Webpack/Vite/npm. Visi failai veikia paleidus juos viešame serveryje tiesiogiai be papildomų paketų.
+- **Be priklausomybių serveryje** — nereikia Composer, PHPUnit keičiamas savu shim.
+- **Progresyvus** — žemėlapis veikia su polling; taip pat realizuotas SSE palaikymas.
 
 ---
 
 ## 5. Alternatyvų vertinimas
 
-Prieš kuriant savą sprendimą, įvertintos esamos platformos. Visos konceptualiai panašios, bet netiko dėl konkrečių priežasčių (kodas **nekopijuotas**).
+Prieš kuriant savą sprendimą, įvertintos esamos platformos. Visos konceptualiai panašios, bet netiko dėl konkrečių priežasčių.
 
 | Sprendimas | Privalumai | Kodėl netiko šiam projektui |
 |-----------|-----------|----------------------------|
@@ -171,7 +171,7 @@ Prieš kuriant savą sprendimą, įvertintos esamos platformos. Visos konceptual
 
 ## 6. Duomenų bazės struktūra ir modelis
 
-Duomenų bazę sudaro **5 lentelių**. Modelis suprojektuotas taip, kad jutiklio tapatybė būtų `lat + lng + MAC`, o matavimai būtų atskiri įrašai su kaskadiniu trynimu.
+Duomenų bazę sudaro **5 lentelės**. Modelis suprojektuotas taip, kad jutiklio tapatybė būtų `lat + lng + MAC`, o matavimai būtų atskiri įrašai su kaskadiniu trynimu.
 
 ### 6.1 Lentelė `sensors` — jutikliai
 
@@ -179,7 +179,7 @@ Duomenų bazę sudaro **5 lentelių**. Modelis suprojektuotas taip, kad jutiklio
 |-----------|-------|-----------|
 | `id` | INT AUTO_INCREMENT PK | Pirminis raktas |
 | `lat` | DECIMAL(10,7) | Platuma (7 skaitmenys ≈ 1 cm tikslumas) |
-| `lng` | DECIMAL(10,7) | Ilguma |
+| `lng` | DECIMAL(10,7) | Ilguma (7 skaitmenys ≈ 1 cm tikslumas) |
 | `mac` | VARCHAR(17) NULL | WiFi MAC (AA:BB:CC:DD:EE:FF); NULL kol laukia pirmo siuntimo |
 | `is_outdoor` | TINYINT(1) | 0 = patalpos, 1 = lauko |
 | `secret` | VARCHAR(64) NULL | Pasirinktinis HMAC shared-secret |
@@ -235,7 +235,7 @@ Duomenų bazę sudaro **5 lentelių**. Modelis suprojektuotas taip, kad jutiklio
 
 ### 6.5 Lentelė `admin_credentials` — administratoriaus kredencialai
 
-Vienos eilutės (`id = 1`) lentelė dviejų pakopų prisijungimui. Saugomas **tik el. pašto hash** (naudotojo vardas), niekada ne atviras tekstas. Slaptažodžio hash lieka `includes/settings.php` faile.
+Vienos eilutės (`id = 1`) lentelė dviejų pakopų prisijungimui. Saugomas **tik el. pašto hash** (naudotojo vardas), be atviro teksto. Slaptažodžio hash lieka `includes/settings.php` faile.
 
 | Stulpelis | Tipas | Paskirtis |
 |-----------|-------|-----------|
@@ -303,11 +303,11 @@ Esybių-ryšių (Entity-Relationship) diagrama. `sensors` ↔ `readings` yra vie
 
 ## 8. Realizacijos komentarai
 
-Šioje sekcijoje aprašyti svarbūs realizacijos sprendimai ir „pamokos", išmoktos kuriant sistemą.
+Šioje sekcijoje aprašyti svarbūs realizacijos sprendimai.
 
 ### 8.1 Jutiklio tapatybė ir MAC priskyrimas
 
-Jutiklis identifikuojamas trijule **(lat, lng, MAC)**. Registracijos metu pateikiamos tik koordinatės ir tipas — **MAC dar nežinomas**. MAC užfiksuojamas per pirmą matavimo siuntimą:
+Jutiklis identifikuojamas trijų kintamųjų pagalbą **(lat, lng, MAC)**. Registracijos metu pateikiamos tik koordinatės ir tipas — **MAC dar nežinomas**. MAC užfiksuojamas per pirmą matavimo siuntimą:
 - **Tikslus sutapimas** (lat+lng+MAC jau yra) → pridedamas matavimas.
 - **Laukiantis įrašas** (lat+lng su MAC=NULL) → priskiriamas MAC, jutiklis patvirtinamas (`confirmed=1`).
 - **Nėra atitikmens** → 403 (jutiklis neregistruotas tose koordinatėse).
@@ -359,7 +359,7 @@ Admin slaptažodžio hash saugomas `includes/settings.php` (asociatyvus masyvas 
 
 ### 8.10 Žemėlapio tiekėjai (Google / OSM / Yandex)
 
-Žemėlapio tiekėjas pasirenkamas **eksplicitiškai** admin sąsajoje (`MAP_TILE_PROVIDER`) — tai vienas tiesos šaltinis (`effectiveMapProvider()` funkcija `includes/security.php`):
+Žemėlapio tiekėjas pasirenkamas  admin sąsajoje (`MAP_TILE_PROVIDER`) — tai vienas tiesos šaltinis (`effectiveMapProvider()` funkcija `includes/security.php`):
 - **Google Maps** (`google`) → reikia API rakto (laukas rodomas tik pasirinkus Google).
 - **OpenTopoMap / CARTO / OpenStreetMap / Yandex / Custom** → per Leaflet, be rakto.
 
