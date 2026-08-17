@@ -263,10 +263,10 @@ Entity-Relationship diagram. `sensors` ↔ `readings` is a one-to-many relations
 │     registered_at DATETIME      │   │
 │     last_seen     DATETIME      │   │
 └────────────┬────────────────────┘   │
-             │ 1                       │
-             │                         │
-             │ N      ON DELETE CASCADE│
-             ▼                         │
+             │ 1                      │
+             │                        │
+             │ N     ON DELETE CASCADE│
+             ▼                        │
 ┌─────────────────────────────────┐   │
 │           readings              │   │
 ├─────────────────────────────────┤   │
@@ -467,8 +467,8 @@ void loop() {
 const char* SSID   = "your-wifi";
 const char* WIFIPW = "password";
 const char* HOST   = "https://your-server.com/iot/api/sensors.php";
-const float MY_LAT = 54.6872000;
-const float MY_LNG = 25.2797000;
+const char* MY_LAT = 54.6872000;
+const char* MY_LNG = 25.2797000;
 
 // HMAC shared-secret — must match the sensor's `secret` value in the DB.
 // Leave empty ("") if the sensor has no secret (signature optional).
@@ -541,8 +541,8 @@ void loop() {
 const char* SSID   = "your-wifi";
 const char* WIFIPW = "password";
 const char* HOST   = "https://your-server.com/iot/api/sensors.php";
-const float MY_LAT = 54.6872000;
-const float MY_LNG = 25.2797000;
+const char* MY_LAT = 54.6872000;
+const char* MY_LNG = 25.2797000;
 const char* SECRET = "my-sensor-secret-123";
 
 String macAddr;
@@ -846,4 +846,4 @@ By default the map refreshes every 30 s. To enable real-time SSE updates, append
 **Author:** Aleksandr Igumenov
 **Institution:** Vilnius University Methodical STEAM Education Centre
 
-**Sources.** All code was written from scratch for this project. Technologies: PHP, MySQL/MariaDB, vanilla JavaScript, Google Maps JavaScript API, Google Geocoding API, Chart.js. Conceptually similar open-source projects (not copied, see the evaluation of alternatives): Sensor.Community, OpenSenseMap, ThingsBoard, Leaflet.
+**Sources.** Technologies: PHP, MySQL/MariaDB, vanilla JavaScript, Google Maps JavaScript API, Google Geocoding API, Chart.js. Conceptually similar open-source projects (loock at an alternatives): Sensor.Community, OpenSenseMap, ThingsBoard, Leaflet.
