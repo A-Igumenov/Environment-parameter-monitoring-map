@@ -2,10 +2,6 @@
 ## IoT Sensor Map — Environmental Data Monitoring System
 
 **Evaluation date:** 2026-06-16 (updated 2026-06-22)
-**Evaluation type:** Independent fresh assessment (from scratch)
-**Evaluator:** IT solutions architect
-
-> English version of `ARCHITEKTO-ATASKAITA.md`.
 
 ---
 
