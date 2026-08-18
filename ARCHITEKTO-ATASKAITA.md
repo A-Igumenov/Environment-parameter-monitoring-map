@@ -23,8 +23,6 @@ Vertinama IoT jutiklių agregavimo ir vizualizavimo sistema aplinkos duomenų st
 | Kokybė ir testai | 🟢 Tvirtas | ~484 testų + FR/NFR atsekamumas (be CI priklausomybių) |
 | Dokumentacija | 🟢 Išsami | README su ER, API, vadovais, firmware |
 
-> **Naujausios funkcijos (dabartinis variantas):** 21 matavimo metrika (įsk. 13 dujų/oro kokybės — MQ-2/4/6/8/135 šeima); dinaminis metrikų filtras; mastelį atitinkantis žymeklių klasterizavimas + „matomi lange" filtras; istorijos laikotarpio parinkiklis (1 d.–12 mėn.); įrenginio UTC laikas (`recorded_at`) ir **„ping"** (`received_at − recorded_at`); schemos↔DB suderinimas su praplėtimu prieš trynimą; atskirti statiniai failai (`assets/styles.css` per include, `assets/app.js` per src); trys ESP firmware pavyzdžiai su NTP laiku ir vidurkinimu.
-
 ---
 
 ## 2. Architektūros stiprybės
