@@ -2,7 +2,7 @@
 ## IoT Sensorių Žemėlapis — Test Use Cases & Execution Report
 
 **Paskutinis atnaujinimas:** 2026-06-22
-**Testų aplinka:** PHP 8.3, MariaDB, Node.js · Patvirtinta XAMPP ir shared hosting suderinamumu (be shell funkcijų)
+**Testų aplinka:** PHP 8.3, MariaDB, Node.js
 
 ---
 
