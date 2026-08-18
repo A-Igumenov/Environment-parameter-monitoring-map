@@ -2,8 +2,6 @@
 ## IoT Sensorių Žemėlapis — Aplinkos Duomenų Stebėsenos Sistema
 
 **Vertinimo data:** 2026-06-16 (atnaujinta 2026-06-22)
-**Vertinimo tipas:** Nepriklausomas auditas nuo nulio (fresh assessment)
-**Vertintojas:** IT sprendimų architektas
 
 ---
 
