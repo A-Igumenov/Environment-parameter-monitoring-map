@@ -25,8 +25,6 @@ This evaluates an IoT sensor aggregation and visualization system for environmen
 | Quality & tests | 🟢 Solid | ~484 tests + FR/NFR traceability (no CI dependencies) |
 | Documentation | 🟢 Thorough | README with ER, API, guides, firmware |
 
-> **Recent features (current variant):** 21 measurement metrics (incl. 13 gas/air-quality — MQ-2/4/6/8/135 family); dynamic metric filter; zoom-aware marker clustering + "visible in viewport" filter; history period selector (1 d–12 mo); device UTC time (`recorded_at`) and **"ping"** (`received_at − recorded_at`); schema↔DB reconciliation that extends the DB before deletion; separated static assets (`assets/styles.css` via include, `assets/app.js` via src); three ESP firmware examples with NTP time and averaging.
-
 ---
 
 ## 2. Architecture strengths
