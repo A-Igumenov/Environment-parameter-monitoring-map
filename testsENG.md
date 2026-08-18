@@ -2,7 +2,7 @@
 ## IoT Sensor Map — Test Use Cases & Execution Report
 
 **Last updated:** 2026-06-24
-**Test environment:** PHP 8.3, MariaDB, Node.js · Verified for XAMPP and shared hosting compatibility (no shell functions)
+**Test environment:** PHP 8.3, MariaDB, Node.js 
 
 > English version of `tests.md`.
 
